@@ -37,7 +37,7 @@ class StopWatch(Frame):
         hseconds = int((elap - minutes*60.0 - seconds)*100)                
         self.timestr.set('%02d:%02d:%02d' % (minutes, seconds, hseconds))
         
-    def StartStop(self):                                                     
+    def start_stop(self):                                                     
         """ Start/Stop the stopwatch. """
         if self._running:
             self.after_cancel(self._timer)            
@@ -49,7 +49,7 @@ class StopWatch(Frame):
             self._update()
             self._running = True        
     
-    def Reset(self):                                  
+    def reset(self):                                  
         """ Reset the stopwatch. """
         self._start = time.time()         
         self._elapsedtime = 0.0
@@ -57,15 +57,15 @@ class StopWatch(Frame):
             self.StartStop()
         self._setTime(self._elapsedtime)
 
-#Callbacks for keystrokes
+# Callbacks for keystrokes
 def callbackSS(event):
-    sw.StartStop()
+    sw.start_stop()
 def callbackRESET(event):
-    sw.Reset()
+    sw.reset()
 def callbackQUIT(event):
     root.quit()
 
-#main program
+# Main program
 def main():
     global sw, root
 
@@ -73,8 +73,8 @@ def main():
     sw = StopWatch(root)
     sw.pack(side=TOP)
     
-    Button(root, text='Start/Stop', command=sw.StartStop, takefocus=False).pack(side=LEFT)
-    Button(root, text='Reset', command=sw.Reset, takefocus=False).pack(side=LEFT)
+    Button(root, text='Start/Stop', command=sw.start_stop, takefocus=False).pack(side=LEFT)
+    Button(root, text='Reset', command=sw.reset, takefocus=False).pack(side=LEFT)
     Button(root, text='Quit', command=root.quit, takefocus=False).pack(side=LEFT)
 
     root.bind("<space>", callbackSS)
